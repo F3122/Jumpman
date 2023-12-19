@@ -4,27 +4,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Cylinders : MonoBehaviour
-{
-    [SerializeField] private GameObject cylinderObject;
-    public List<GameObject> cylinders = new List<GameObject>();
+{ 
+    public GameObject cylinder;
+    float potenza = 5;
+    float reload = 2f;
     
-    private float tempo = 0;
-    public float potenza = 5;
-
+    
     void Start()
     {
-        cylinders = new List<GameObject>();
     }
 
     void Update()
     {
-        Invoke("SpawnCylinder", 2f);
+        if (Time.time >= reload)
+        {
+            cylinder = Instantiate(cylinder, new Vector3(8, 3, 9) + Vector3.left, Quaternion.Euler(270, 0, 0));
+            cylinder.GetComponent<Rigidbody>().velocity = Vector3.left  * this.potenza;
+            reload = Time.time + 2f;
+        } 
     }
 
-    void SpawnCylinder()
+    private void OnCollisionEnter(Collision collision)
     {
-        var tmp = Instantiate(cylinderObject, new Vector3(8, 3, 9), Quaternion.Euler(270, 0, 0));
-        tmp.GetComponent<Rigidbody>().velocity =  Vector3.forward * this.potenza;
-        cylinders.Add((tmp));
+        if (collision.gameObject.CompareTag("FinalLayer"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
+
+
