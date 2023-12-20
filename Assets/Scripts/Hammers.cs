@@ -12,7 +12,7 @@ public class RotativeObstacles : MonoBehaviour
     GameObject hammer1;
     GameObject hammer2;
     
-    public float degreesPerSecond = 100.0f;
+    public float degreesPerSecond = 200.0f;
 
     private Vector3 hammerScale = new Vector3(10, 10, 10);
     
@@ -27,9 +27,9 @@ public class RotativeObstacles : MonoBehaviour
     void LateUpdate()
     {
         hammer1.transform.Rotate(Vector3.up * degreesPerSecond * Time.deltaTime, Space.Self); 
-        hammer1.transform.Rotate(Vector3.left * degreesPerSecond * Time.deltaTime,Space.Self);   
+        //hammer1.transform.Rotate(Vector3.left * degreesPerSecond * Time.deltaTime,Space.Self);   
         
         hammer2.transform.Rotate(Vector3.up * degreesPerSecond * Time.deltaTime, Space.Self); 
-        hammer2.transform.Rotate(Vector3.left * degreesPerSecond * Time.deltaTime,Space.Self); 
+        //hammer2.transform.Rotate(Vector3.left * degreesPerSecond * Time.deltaTime,Space.Self); 
     }
 }
