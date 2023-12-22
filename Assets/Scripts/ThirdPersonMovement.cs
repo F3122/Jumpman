@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class ThirdPersonMovement : MonoBehaviour
     public Transform cam;
     public Transform groundCheck;
     public LayerMask groundMask;
+    
+    public Animator animator;
     
     public float groundDistance = 0.4f;
     public float speed = 3f;
@@ -27,7 +30,6 @@ public class ThirdPersonMovement : MonoBehaviour
     private bool isGrounded;
     void Start()
     {
-        
     }
 
     void Update()
@@ -57,11 +59,42 @@ public class ThirdPersonMovement : MonoBehaviour
 
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDirection * speed * Time.deltaTime);
+            
+            //animator.Play("RunForward");
         }
 
+        /* if (Input.GetButtonDown("Jump") && isGrounded && (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical")))
+        {
+            animator.Play("JumpWhileRunning");
+        }
+        else */
+        
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            animator.Play("Jump");
         }
+
+        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+        {
+            animator.Play("RunForward");
+        }
+
+        if (Input.GetButtonDown("Jump") && (Input.GetButton("Horizontal") || Input.GetButton("Vertical")))
+        {
+            Debug.Log("" );
+            animator.Play("JumpWhileRunning");
+        }
+
+        /*if (Input.GetButtonDown("Horizontal") && Input.GetButtonDown("Vertical"))
+        {
+            animator.Play("RunForward");
+        }*/
+        
+        /*if (Input.GetButtonDown("Horizontal") && Input.GetButtonDown("Vertical"))
+        {
+            animator.Play("JumpWhileRunning");
+
+        }*/
     }
 }

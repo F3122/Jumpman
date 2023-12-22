@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4508199, g: 0.50073934, b: 0.5746953, a: 1}
+  m_IndirectSpecularColor: {r: 0.4508196, g: 0.50073886, b: 0.5746949, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -176,6 +176,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  animator: {fileID: 2041911936}
   groundDistance: 0.4
   speed: 5
   gravity: -19.62
@@ -10369,7 +10370,7 @@ MonoBehaviour:
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
-    m_InvertInput: 1
+    m_InvertInput: 0
     m_MinValue: -180
     m_MaxValue: 180
     m_Wrap: 1
@@ -10522,7 +10523,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477496369}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18149687, y: 0.000000018917815, z: -0.0000000034915133, w: 0.9833915}
+  m_LocalRotation: {x: 0.18149687, y: -0.000000018917815, z: 0.0000000034915133, w: 0.9833915}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10851,7 +10852,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597948095}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23769179, y: -0.000000008356629, z: 0.000000002044908, w: 0.97134066}
+  m_LocalRotation: {x: 0.23769179, y: 0.000000008356627, z: -0.0000000020449078, w: 0.97134066}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11435,7 +11436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21466006, y: -0.000000006049899, z: 0.0000000013296678, w: 0.97668886}
+  m_LocalRotation: {x: 0.21466006, y: 0.000000006049899, z: -0.0000000013296678, w: 0.97668886}
   m_LocalPosition: {x: 0, y: 9.254103, z: -7.9605107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21316,7 +21317,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 10}
+  m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1005749311}
@@ -21554,6 +21555,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2041911936 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: de13a7420582ded45a8d7d3f96889aca, type: 3}
+  m_PrefabInstance: {fileID: 822304200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
