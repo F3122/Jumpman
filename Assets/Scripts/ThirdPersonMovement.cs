@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.Properties;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class ThirdPersonMovement : MonoBehaviour
     public float speed = 3f;
 
     Vector3 velocity;
+    Vector3 moveDirection;
     public float gravity = -9.81f;
     public float jumpHeight = 1f;
 
@@ -28,12 +31,15 @@ public class ThirdPersonMovement : MonoBehaviour
     private float kz;
 
     private bool isGrounded;
+    
     void Start()
     {
     }
 
     void Update()
     {
+        //Camera and Player Movement
+        
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -57,44 +63,36 @@ public class ThirdPersonMovement : MonoBehaviour
             
             transform.rotation = Quaternion.Euler(0f, angle, 0);
 
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDirection * speed * Time.deltaTime);
-            
-            //animator.Play("RunForward");
         }
 
-        /* if (Input.GetButtonDown("Jump") && isGrounded && (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical")))
-        {
-            animator.Play("JumpWhileRunning");
-        }
-        else */
         
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            animator.Play("Jump");
         }
-
-        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
-        {
-            animator.Play("RunForward");
-        }
-
-        if (Input.GetButtonDown("Jump") && (Input.GetButton("Horizontal") || Input.GetButton("Vertical")))
-        {
-            Debug.Log("" );
-            animator.Play("JumpWhileRunning");
-        }
-
-        /*if (Input.GetButtonDown("Horizontal") && Input.GetButtonDown("Vertical"))
-        {
-            animator.Play("RunForward");
-        }*/
         
-        /*if (Input.GetButtonDown("Horizontal") && Input.GetButtonDown("Vertical"))
-        {
-            animator.Play("JumpWhileRunning");
+        //Animations 
 
-        }*/
+        //RunForward
+        if (direction.magnitude >= 0.1f)
+        {
+            animator.SetFloat("Speed", 0.3f);
+        }
+        else 
+        {
+            animator.SetFloat("Speed", 0f);
+        }
+        
+        //JumpWhileRunning
+        if (animator.GetFloat("Speed") > 0.1f && Input.GetButtonDown("Jump"))
+        {
+            animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
+        }
     }
 }
