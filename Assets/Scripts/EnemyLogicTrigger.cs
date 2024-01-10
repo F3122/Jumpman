@@ -12,65 +12,44 @@ public class EnemyLogicTrigger : MonoBehaviour
     private float degreesPerSecond = 100.0f;
     private float speed = 2.0f;
 
-    private GameObject wp1, wp2;
     public GameObject[] waypoints;
     
     GameObject player;
 
-    Rigidbody rb;
-    float walkingSpeed = 5.0f;
+    float chasingSpeed = 6.0f;
 
     private bool isChasing = false;
 
-    private void Awake()
+
+    private void OnEnable()
     {
-        
+        waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
     }
 
     private void Start()
     {
         player = GameObject.Find("ThirdPersonPlayer");
-        waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
-
     }
-    
-    void Update()
+
+    private void Update()
     {
         
-        if (Vector3.Distance(waypoints[currentWaypointIndex].transform.position, enemy.transform.position) < 1)
-        {
-            currentWaypointIndex++;
-            if (currentWaypointIndex >= waypoints.Length)
-            {
-                currentWaypointIndex = 0; 
-            }
-        }
-        else
-        {
-            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, waypoints[currentWaypointIndex].transform.position, speed * Time.deltaTime);
-        }
+    }
+
+    void FixedUpdate()
+    {
+        
+        
         
         if (isChasing)
         {
-            Vector3 direction = (player.transform.position - transform.position).normalized;
-            transform.Translate(direction * walkingSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, chasingSpeed * Time.deltaTime);
         }
         else
         {
-            if (Vector3.Distance(waypoints[currentWaypointIndex].transform.position, enemy.transform.position) < 1)
-            {
-                currentWaypointIndex++;
-                if (currentWaypointIndex >= waypoints.Length)
-                {
-                    currentWaypointIndex = 0; 
-                }
-            }
-            else
-            {
-                enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, waypoints[currentWaypointIndex].transform.position, speed * Time.deltaTime);
-            }
-            enemy.transform.Rotate(Vector3.up * degreesPerSecond * Time.deltaTime, Space.Self);
+            Movement();
         }
+        
     }
     
     
@@ -82,4 +61,33 @@ public class EnemyLogicTrigger : MonoBehaviour
             isChasing = true;
         }
     }
+    
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.gameObject.name.Contains("ThirdPersonPlayer"))
+        {
+            Debug.Log("non ti vedo più");
+            isChasing = false;
+        }
+    }
+    
+    
+    private void Movement()
+    {
+        if (Vector3.Distance(waypoints[currentWaypointIndex].transform.position, transform.position) < 1)
+        {
+            currentWaypointIndex++;
+            if (currentWaypointIndex >= waypoints.Length)
+            {
+                currentWaypointIndex = 0; 
+            }
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, speed * Time.deltaTime);
+            transform.Rotate(Vector3.up * degreesPerSecond * Time.deltaTime, Space.Self);
+        }
+
+    }
+        
 }

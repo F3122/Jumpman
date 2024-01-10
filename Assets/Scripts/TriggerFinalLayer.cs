@@ -23,6 +23,13 @@ public class TriggerFinalLayer : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
-        
+        if (collision.gameObject.name.Contains("Enemy"))
+        {
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.name.Contains("Enemy"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }
