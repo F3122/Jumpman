@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FinalLayer
   - Cylinder
+  - Waypoint
   layers:
   - Default
   - TransparentFX

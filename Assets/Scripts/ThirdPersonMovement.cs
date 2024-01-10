@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -78,16 +79,17 @@ public class ThirdPersonMovement : MonoBehaviour
         //RunForward
         if (direction.magnitude >= 0.1f)
         {
-            animator.SetFloat("Speed", 0.3f);
+            animator.SetBool("isWalking", true);
         }
         else 
         {
-            animator.SetFloat("Speed", 0f);
+            animator.SetBool("isWalking", false);
         }
         
         //JumpWhileRunning
-        if (animator.GetFloat("Speed") > 0.1f && Input.GetButtonDown("Jump"))
+        if (animator.GetBool("isWalking") == false && Input.GetButtonDown("Jump"))
         {
+            Debug.Log("ciao");
             animator.SetBool("isJumping", true);
         }
         else
