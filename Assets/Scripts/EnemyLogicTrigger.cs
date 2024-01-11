@@ -44,6 +44,7 @@ public class EnemyLogicTrigger : MonoBehaviour
         if (isChasing)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, chasingSpeed * Time.deltaTime);
+            //transform.LookAt(player.transform.position);
         }
         else
         {
@@ -87,7 +88,6 @@ public class EnemyLogicTrigger : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, speed * Time.deltaTime);
             transform.Rotate(Vector3.up * degreesPerSecond * Time.deltaTime, Space.Self);
         }
-
     }
         
 }

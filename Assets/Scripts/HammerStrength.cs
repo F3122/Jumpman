@@ -46,7 +46,6 @@ public class HammerStrength : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("entrato nel collision enter");
         if (collision.gameObject.name.Contains("ThirdPersonPlayer") && !hitted) 
         {
             Debug.Log("contatto");

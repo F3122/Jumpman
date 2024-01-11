@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.Properties;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
-
+    public GameObject me;
+    
     public CharacterController controller;
     public Transform cam;
     public Transform groundCheck;
@@ -33,6 +35,9 @@ public class ThirdPersonMovement : MonoBehaviour
     private float kz;
 
     private bool isGrounded;
+    
+    public bool alive = true;
+
     
     void Start()
     {
@@ -97,5 +102,24 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             animator.SetBool("isJumping", false);
         }
-    }    
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.name.Contains("FinalLayer"))
+        {
+            alive = false;
+            me.SetActive(false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name.Contains("Enemy"))
+        {
+            alive = false;
+            me.SetActive(false);
+            //GameObject.SetGameObjectsActive(false);
+        }
+    }
 }

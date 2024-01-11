@@ -1,23 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class ScreenScript : MonoBehaviour
 {
-    public GameObject endMenu;
-
+    public GameObject loseGame;
+    public GameObject player;
+    public static bool alive = true;
+    
+    
     void Start()
     {
-        endMenu.SetActive(false);
+        loseGame.SetActive(false);
+        alive = true;
     }
 
     void Update()
     {
-        /*
+
+        alive = player.GetComponent<ThirdPersonMovement>().alive;
+        //Debug.Log(alive);
+        
         if (!alive)
         {
-            endMenu.SetActive(false);
+            loseGame.SetActive(true);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         } 
-        */
+        
     }
 }

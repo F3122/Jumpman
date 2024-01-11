@@ -6,9 +6,12 @@ using UnityEngine;
 public class CylinderStrength : MonoBehaviour
 {
     private CharacterController player;
+    private bool playerObj;
 
     private bool hitted = false;
     private float timer;
+
+    private bool alive;
     
     void Start()
     {
@@ -22,31 +25,38 @@ public class CylinderStrength : MonoBehaviour
     }
     
     private void FixedUpdate() {
+        
+        playerObj = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonMovement>().alive;
+        
+        //alive = playerObj.GetComponent<ThirdPersonMovement>().alive;
 
-        if (hitted)
+        if (alive)
         {
             
-            timer += Time.deltaTime;
-
-            
-            
-            Debug.Log(timer);
-            
-            
-            player.Move((Vector3.left + Vector3.up)*2 * Time.deltaTime / timer);
-            if (timer >= 1)
+            if (hitted)
             {
-                hitted = false;
-                timer = 0;
+                
+                timer += Time.deltaTime;
+
+                
+                
+                Debug.Log(timer);
+                
+                
+                player.Move((Vector3.left + Vector3.up)*2 * Time.deltaTime / timer);
+                if (timer >= 1)
+                {
+                    hitted = false;
+                    timer = 0;
+                }
+             
+                
             }
-         
-            
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("entrato nel collision enter");
         if (collision.gameObject.name.Contains("ThirdPersonPlayer") && !hitted) 
         {
             Debug.Log("contatto");
