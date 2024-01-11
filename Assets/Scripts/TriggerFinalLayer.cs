@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class TriggerFinalLayer : MonoBehaviour
 {
+
+    private bool alive = true;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,11 @@ public class TriggerFinalLayer : MonoBehaviour
         }
         if (collision.gameObject.name.Contains("Enemy"))
         {
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.name.Contains("ThirdPersonPlayer"))
+        {
+            alive = false;
             Destroy(collision.gameObject);
         }
     }

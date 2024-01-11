@@ -32,4 +32,5 @@ public class RotativeObstacles : MonoBehaviour
         hammer2.transform.Rotate(Vector3.up * degreesPerSecond * Time.deltaTime, Space.Self); 
         //hammer2.transform.Rotate(Vector3.left * degreesPerSecond * Time.deltaTime,Space.Self); 
     }
+    
 }

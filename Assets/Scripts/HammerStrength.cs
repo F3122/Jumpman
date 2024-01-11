@@ -1,22 +1,21 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class ExplosionTrigger : MonoBehaviour
+public class HammerStrength : MonoBehaviour
 {
     private CharacterController player;
 
     private bool hitted = false;
     private float timer;
     
-    public GameObject explosionSet;
     void Start()
     {
         timer = 0;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
     }
-    
+
     void Update()
     {
         
@@ -34,7 +33,7 @@ public class ExplosionTrigger : MonoBehaviour
             Debug.Log(timer);
             
             
-            player.Move((Vector3.back + Vector3.up * 4) * Time.deltaTime / timer);
+            player.Move((Vector3.back + Vector3.up) * Time.deltaTime / timer);
             if (timer >= 1)
             {
                 hitted = false;
@@ -44,23 +43,17 @@ public class ExplosionTrigger : MonoBehaviour
             
         }
     }
-    
-    private void OnTriggerEnter(Collider collision)
+
+    void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name.Contains("ThirdPersonPlayer"))
+        Debug.Log("entrato nel collision enter");
+        if (collision.gameObject.name.Contains("ThirdPersonPlayer") && !hitted) 
         {
-            if (collision.gameObject.name.Contains("ThirdPersonPlayer") && !hitted) 
-            {
-                Vector3 pointOfContact = player.transform.position;
-                Vector3 pointAfterContact = player.transform.position - Vector3.back;
-                hitted = true;
-            }
-            
-            Instantiate(explosionSet, transform.position, Quaternion.identity);
-            Destroy(gameObject, 0.2f);
+            Debug.Log("contatto");
+            Vector3 pointOfContact = player.transform.position;
+            Vector3 pointAfterContact = player.transform.position - Vector3.back;
+            hitted = true;
         }
     }
+
 }
-
-
-

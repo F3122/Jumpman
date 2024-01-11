@@ -19,6 +19,7 @@ public class ThirdPersonMovement : MonoBehaviour
     
     public float groundDistance = 0.4f;
     public float speed = 3f;
+    public float knokbackForce = 3f;
 
     Vector3 velocity;
     Vector3 moveDirection;
@@ -96,5 +97,5 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             animator.SetBool("isJumping", false);
         }
-    }
+    }    
 }
