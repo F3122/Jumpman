@@ -44,7 +44,8 @@ public class EnemyLogicTrigger : MonoBehaviour
         if (isChasing)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, chasingSpeed * Time.deltaTime);
-            //transform.LookAt(player.transform.position);
+            transform.LookAt(player.transform.position);
+            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
         }
         else
         {

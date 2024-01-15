@@ -27,8 +27,8 @@ public class BombStrength : MonoBehaviour
         {
             timer += Time.deltaTime;
             Debug.Log(timer);
-            
-            player.Move((Vector3.back + Vector3.up * 4) * Time.deltaTime / timer);
+
+            player.Move((Vector3.back + Vector3.up * 2.5f) * Time.deltaTime / timer);
             if (timer >= 1)
             {
                 hitted = false;
@@ -41,7 +41,7 @@ public class BombStrength : MonoBehaviour
     {
         if (collision.gameObject.name.Contains("ThirdPersonPlayer") && !hitted) 
         {
-            Debug.Log("contatto");
+            Debug.Log("esplosione");
             Vector3 pointOfContact = player.transform.position;
             Vector3 pointAfterContact = player.transform.position - Vector3.back;
             hitted = true;

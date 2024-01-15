@@ -26,31 +26,22 @@ public class CylinderStrength : MonoBehaviour
     
     private void FixedUpdate() {
         
-        playerObj = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonMovement>().alive;
+        //playerObj = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonMovement>().alive;
         
         //alive = playerObj.GetComponent<ThirdPersonMovement>().alive;
 
-        if (alive)
+        
+        if (hitted)
         {
+            timer += Time.deltaTime;
+            Debug.Log(timer);
             
-            if (hitted)
+            
+            player.Move((Vector3.left + Vector3.up)*2 * Time.deltaTime / timer);
+            if (timer >= 1)
             {
-                
-                timer += Time.deltaTime;
-
-                
-                
-                Debug.Log(timer);
-                
-                
-                player.Move((Vector3.left + Vector3.up)*2 * Time.deltaTime / timer);
-                if (timer >= 1)
-                {
-                    hitted = false;
-                    timer = 0;
-                }
-             
-                
+                hitted = false;
+                timer = 0;
             }
         }
     }

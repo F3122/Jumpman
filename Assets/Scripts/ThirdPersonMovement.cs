@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.Properties;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -36,11 +35,18 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private bool isGrounded;
     
+    private MeshRenderer meRender;
     public bool alive = true;
-
+    public bool won = true;
+    
+    private float targetAngle;
+    private float angle;
     
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        alive = true;
+        won = false;
     }
 
     void Update()
@@ -61,11 +67,12 @@ public class ThirdPersonMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime * 2);
-
-        if (direction.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turningVelocitySmoothly,
+        
+ 
+         if (direction.magnitude >= 0.1f)
+        { 
+            targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turningVelocitySmoothly,
                 turningTimeSmoothly);
             
             transform.rotation = Quaternion.Euler(0f, angle, 0);
@@ -73,6 +80,7 @@ public class ThirdPersonMovement : MonoBehaviour
             moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDirection * speed * Time.deltaTime);
         }
+      
 
         
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -95,7 +103,7 @@ public class ThirdPersonMovement : MonoBehaviour
         //JumpWhileRunning
         if (animator.GetBool("isWalking") == false && Input.GetButtonDown("Jump"))
         {
-            Debug.Log("ciao");
+            Debug.Log("salto");
             animator.SetBool("isJumping", true);
         }
         else
@@ -108,8 +116,17 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         if (collision.gameObject.name.Contains("FinalLayer"))
         {
-            alive = false;
-            me.SetActive(false);
+            Invoke("PlayerDeath", 0.2f);
+        }
+        if (collision.gameObject.name.Contains("Bomb"))
+        {
+            Invoke("PlayerDeath", 0.2f);
+        }
+        if (collision.gameObject.name.Contains("FinishLine"))
+        {
+            won = true;
+            me.SetActive(true);
+            Destroy(gameObject, 2f);
         }
     }
 
@@ -117,9 +134,24 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         if (collision.gameObject.name.Contains("Enemy"))
         {
+            Invoke("PlayerDeath", 0f);
+            //GameObject.SetGameObjectsActive(false);
+        }
+        if (collision.gameObject.name.Contains("Cylinder"))
+        {
+            alive = true;
+            me.SetActive(true);
+            Destroy(collision.gameObject, 0.5f);
+        }
+        
+        
+    }
+    private void PlayerDeath()
+    {
+        if (me != null)
+        {
             alive = false;
             me.SetActive(false);
-            //GameObject.SetGameObjectsActive(false);
         }
     }
 }
