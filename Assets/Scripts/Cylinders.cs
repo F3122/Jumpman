@@ -9,7 +9,7 @@ public class Cylinders : MonoBehaviour
 
     GameObject spawnedCylinder;
     float potenza = 10;
-    float reload = 0.8f;
+    float reload = 1f;
     
     
     void Start()
@@ -24,7 +24,7 @@ public class Cylinders : MonoBehaviour
             spawnedCylinder = Instantiate(cylinder, new Vector3(9, 2.5f, 9) + Vector3.left, Quaternion.Euler(270, 0, 0));
             spawnedCylinder.GetComponent<Rigidbody>().velocity = Vector3.left * this.potenza;
             //spawnedCylinder.GetComponent<Rigidbody>().useGravity = Vector3.left * this.potenza;
-            reload = Time.time + 2f;
+            reload = Time.time + 1f;
         } 
     }
 }
